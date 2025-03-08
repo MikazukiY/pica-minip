@@ -1,0 +1,14 @@
+.cat-cover-img {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 1rem;
+  object-fit: cover;
+  box-shadow: 0 0 3px 0 #4F5153
+}
+
+.cat-list {
+  display: grid;
+  justify-content: space-evenly;
+  grid-template-columns: repeat(auto-fill, 7rem);
+  row-gap: .2rem
+}

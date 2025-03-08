@@ -1,0 +1,18 @@
+.sort-header {
+  position: fixed;
+  font-size: .8rem;
+  left: 10px;
+  top: 5px;
+  height: 30px;
+  border-radius: .5rem;
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  z-index: 1
+}
+
+.load-more-btn-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
