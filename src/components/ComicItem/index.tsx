@@ -1,12 +1,22 @@
-import { Show } from "solid-js";
+import { createSignal, Show } from "solid-js";
 import { LazyLoad } from "../../utils";
 import likesImg from "../../assets/icon_like.png";
 import { PicaComic } from "../../api/model";
 import "./index.css";
 import { navigateTo, previewImage } from "minip-bridge";
+import SwipeOut from "../SwipeOut";
 
-export default function ComicItem({ comic }: { comic: PicaComic }) {
+export default function ComicItem({
+  comic,
+  onDelete,
+}: {
+  comic: PicaComic;
+  onDelete?: () => void;
+}) {
+  let mainRef;
   const imgSrc = comic.thumb.fileServer + "/static/" + comic.thumb.path;
+  const [swiped, setSwiped] = createSignal(false);
+  const [closeFunc, setCloseFunc] = createSignal(() => {});
 
   function showTags() {
     const cats = comic.categories;
@@ -17,28 +27,19 @@ export default function ComicItem({ comic }: { comic: PicaComic }) {
 
     return false;
   }
-  return (
-    <div
-      class="fade-in"
-      style={{
-        display: "flex",
-        "padding-left": "0.5rem",
-        "padding-right": "0.5rem",
-        gap: "0.5rem",
-      }}
-      onClick={() => {
-        navigateTo({
-          page: `index.html?id=${comic._id}&page=comic_detail`,
-          title: comic.title,
-        });
-      }}
-    >
+
+  const content = (
+    <>
       <img
         ref={(el) => LazyLoad(el)}
         class="lazy-img"
         data-src={imgSrc}
         onClick={(e) => {
           e.stopPropagation();
+          if (swiped()) {
+            closeFunc()();
+            return;
+          }
           previewImage(imgSrc);
         }}
         style={{
@@ -130,6 +131,86 @@ export default function ComicItem({ comic }: { comic: PicaComic }) {
           </Show>
         </div>
       </Show>
+    </>
+  );
+  if (onDelete) {
+    return (
+      <div
+        ref={mainRef}
+        style={{
+          "padding-left": "0.5rem",
+          "padding-right": "0.5rem",
+        }}
+      >
+        <SwipeOut
+          right={
+            <div
+              class="right-delete-btn swipeout-action"
+              onClick={() => {
+                if (mainRef) {
+                  const el = mainRef as HTMLElement;
+                  el.style.maxHeight = el.offsetHeight + "px";
+                  el.classList.add("collapsing");
+                  setTimeout(onDelete, 200);
+                } else {
+                  onDelete();
+                }
+              }}
+            >
+              删除
+            </div>
+          }
+          onRevealed={(_, r) => {
+            setSwiped(true);
+            setCloseFunc(() => r.close);
+          }}
+          onClosed={() => setSwiped(false)}
+        >
+          <div
+            class="fade-in"
+            style={{
+              display: "flex",
+              gap: "0.5rem",
+            }}
+            onClick={() => {
+              if (swiped()) {
+                closeFunc()();
+                return;
+              }
+              navigateTo({
+                page: `index.html?id=${comic._id}&page=comic_detail`,
+                title: comic.title,
+              });
+            }}
+          >
+            {content}
+          </div>
+        </SwipeOut>
+      </div>
+    );
+  }
+  return (
+    <div
+      ref={mainRef}
+      class="fade-in"
+      style={{
+        display: "flex",
+        "padding-left": "0.5rem",
+        "padding-right": "0.5rem",
+        gap: "0.5rem",
+      }}
+      onClick={() => {
+        if (swiped()) {
+          closeFunc()();
+          return;
+        }
+        navigateTo({
+          page: `index.html?id=${comic._id}&page=comic_detail`,
+          title: comic.title,
+        });
+      }}
+    >
+      {content}
     </div>
   );
 }

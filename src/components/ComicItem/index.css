@@ -4,3 +4,27 @@
   align-items: center;
   text-align: center;
 }
+.right-delete-btn {
+  background-color: red;
+  color: white;
+  width: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes collapse {
+  from {
+  }
+  to {
+    max-height: 0;
+    opacity: 0;
+    display: none;
+    margin-bottom: -0.5rem;
+  }
+}
+
+.collapsing {
+  animation: collapse 0.2s ease-out forwards;
+  overflow: hidden;
+}

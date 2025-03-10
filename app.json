@@ -1,8 +1,10 @@
 {
   "name": "pica-minip",
   "displayName": "Pica",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "author": "Yosorable",
   "appId": "b7006df1-db56-4fe9-a640-4456e463b4fd",
+  "website": "https://github.com/Yosorable/pica-minip",
   "homepage": "index.html",
   "navigationBarStatus": "display",
   "icon": "pica.jpg",

@@ -13,6 +13,7 @@ import "./index.scss";
 import { PicaApi2 } from "../../api/api";
 import { PicaComic } from "../../api/model";
 import { getKVStorage, setKVStorage, showAlert } from "minip-bridge";
+import SwipeOut from "../../components/SwipeOut";
 
 interface ComicListViewProps {
   type:
@@ -163,9 +164,42 @@ export default function ComicListView({
         }}
       >
         <Show when={type !== "random" || !isLoading()}>
-          <For each={comics()}>{(item) => <ComicItem comic={item} />}</For>
+          <For each={comics()}>
+            {(item) => (
+              <ComicItem
+                comic={item}
+                onDelete={
+                  type === "history"
+                    ? function () {
+                        KVStore.removeHistoryItem(item._id).then((res) => {
+                          if (res) {
+                            setComics((curr) => curr.filter((i) => i !== item));
+                          }
+                        });
+                      }
+                    : undefined
+                }
+              />
+            )}
+          </For>
         </Show>
-        <Show when={(total() !== page() || type === "random") && !isLoading()}>
+        <Show when={type === "history" && comics().length > 0}>
+          <div
+            class="text-center"
+            style={{
+              "font-size": "0.8rem",
+              color: "gray",
+            }}
+          >
+            - 左滑删除 -
+          </div>
+        </Show>
+        <Show
+          when={
+            ((total() !== page() && total() !== 0) || type === "random") &&
+            !isLoading()
+          }
+        >
           <div class="text-center">
             <button class="next-btn" onClick={nextPage}>
               {type === "random" ? "refresh" : "next"}

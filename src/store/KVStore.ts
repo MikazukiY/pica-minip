@@ -1,4 +1,4 @@
-import { getKVStorage, setKVStorage } from "minip-bridge";
+import { deleteKVStorage, getKVStorage, setKVStorage } from "minip-bridge";
 
 export const KVStore = {
   setLastRead(
@@ -36,6 +36,19 @@ export const KVStore = {
     nowList = [comic._id, ...nowList];
     setKVStorage("history", JSON.stringify(nowList));
     setKVStorage(comic._id, JSON.stringify(comic));
+  },
+  async removeHistoryItem(comidId: string) {
+    try {
+      let nowList: Array<any> = [];
+      const str = await getKVStorage("history");
+      nowList = [...JSON.parse(str.data)];
+      nowList = nowList.filter((item) => item !== comidId);
+      setKVStorage("history", JSON.stringify(nowList));
+      deleteKVStorage(`lastRead-${comidId}`);
+      return true;
+    } catch {
+      return false;
+    }
   },
   async getHistoryCount() {
     let res = 0;
