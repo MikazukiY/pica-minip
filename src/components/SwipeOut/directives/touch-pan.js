@@ -108,8 +108,7 @@ export function useTouchPan(el, options) {
         if (ctx.event.abort === true) return;
 
         // 原生页面返回手势和这里的touch会同时触发，所以左边区域不响应touch
-        // 7rem 是ComicItem左边图片的宽度
-        if (ctx.event.x < remToPx(7)) return;
+        if (ctx.event.x < 30) return;
 
         if (ctx.event.detected === true) {
           if (options.stop) evt.stopPropagation();
