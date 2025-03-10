@@ -69,6 +69,7 @@ export default function Home() {
   onMount(() => {
     refreshData(true);
     getKVStorage("keywords").then((res) => {
+      if (!res.hasData()) return;
       setKeywords((prev) => {
         if (prev.length !== 0) return prev;
         return JSON.parse(res.data);
