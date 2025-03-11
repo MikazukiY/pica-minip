@@ -12,4 +12,6 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
   );
 }
 
+root?.addEventListener("dblclick", (e) => e.preventDefault());
+
 render(() => <App />, root as HTMLElement);
