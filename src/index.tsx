@@ -2,7 +2,6 @@
 import { render } from "solid-js/web";
 import "./index.css";
 import App from "./App.jsx";
-import SwipeOut from "./components/SwipeOut/index.jsx";
 
 const root = document.getElementById("root");
 

@@ -13,7 +13,6 @@ import "./index.scss";
 import { PicaApi2 } from "../../api/api";
 import { PicaComic } from "../../api/model";
 import { getKVStorage, setKVStorage, showAlert } from "minip-bridge";
-import SwipeOut from "../../components/SwipeOut";
 
 interface ComicListViewProps {
   type:

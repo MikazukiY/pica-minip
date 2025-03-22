@@ -30,7 +30,6 @@ export interface SwipeOutProps {
 
 export default function SwipeOut({
   threshold = 45,
-  revealed = false,
   disabled = false,
   passiveListeners = false,
   children,
@@ -43,7 +42,7 @@ export default function SwipeOut({
   onRightRevealed,
   onActive,
 }: SwipeOutProps) {
-  let elRef, leftRef, rightRef, contentRef;
+  let [elRef, leftRef, rightRef, contentRef]: any[] = [];
 
   onMount(() => {
     function emit(
@@ -94,11 +93,7 @@ export default function SwipeOut({
       elRef
     );
     const { animateSlide } = useSwipeAnimation(state, { left, right });
-    const { reveal, close, revealLeft, revealRight } = useSwipeReveal(
-      state,
-      animateSlide,
-      emit
-    );
+    const { reveal } = useSwipeReveal(state, animateSlide, emit);
 
     const slots = { left, right };
     const { onPan } = useSwipeGestures({

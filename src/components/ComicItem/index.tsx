@@ -13,7 +13,7 @@ export default function ComicItem({
   comic: PicaComic;
   onDelete?: () => void;
 }) {
-  let mainRef;
+  let mainRef: any;
   const imgSrc = comic.thumb.fileServer + "/static/" + comic.thumb.path;
   const [swiped, setSwiped] = createSignal(false);
   const [closeFunc, setCloseFunc] = createSignal(() => {});
