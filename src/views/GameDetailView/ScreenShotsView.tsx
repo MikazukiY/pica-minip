@@ -27,7 +27,7 @@ export function ScreenShotsView({
             style={{
               height: "12rem",
             }}
-            src={HandleImg(item)}
+            src={"minipimg" + HandleImg(item)}
           />
         )}
       </For>

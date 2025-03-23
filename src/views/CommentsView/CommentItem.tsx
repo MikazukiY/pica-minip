@@ -83,7 +83,7 @@ export function CommentItem({
           onClick={() => dialog.showModal()}
         >
           <img
-            src={avatar ? HandleImg(avatar) : defaultAvatar}
+            src={avatar ? "minipimg" + HandleImg(avatar) : defaultAvatar}
             loading="lazy"
             style={{
               width: isChildComment ? "3.1rem" : "3.7rem",

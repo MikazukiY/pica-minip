@@ -36,7 +36,7 @@ function RecordCollection({ comics }: { comics: any }) {
                     "border-radius": ".5rem",
                     "object-fit": "cover",
                   }}
-                  src={HandleImg(item.thumb)}
+                  src={"minipimg" + HandleImg(item.thumb)}
                   class="fade-in"
                 />
               </div>

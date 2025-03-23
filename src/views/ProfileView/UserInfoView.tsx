@@ -113,7 +113,11 @@ export function UserInfoView({
                 position: "absolute",
                 border: "2px solid #da9cb3",
               }}
-              src={info()!.avatar ? HandleImg(info()!.avatar) : defaultAvatar}
+              src={
+                info()!.avatar
+                  ? "minipimg" + HandleImg(info()!.avatar)
+                  : defaultAvatar
+              }
             />
             <Show when={info()!.character}>
               <img

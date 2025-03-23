@@ -30,7 +30,7 @@ export function CreatorView({
           style={{
             "border-color": "#da9cb3",
           }}
-          src={avatar ? HandleImg(avatar) : defaultAvatar}
+          src={avatar ? "minipimg" + HandleImg(avatar) : defaultAvatar}
           onClick={() => {
             dialog.showModal();
           }}

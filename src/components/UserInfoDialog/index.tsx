@@ -42,7 +42,7 @@ export default function UserInfoDialog({
           }}
         >
           <img
-            src={avatar ? HandleImg(avatar) : defaultAvatar}
+            src={avatar ? "minipimg" + HandleImg(avatar) : defaultAvatar}
             loading="lazy"
             style={{
               width: "8rem",

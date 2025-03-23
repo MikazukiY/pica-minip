@@ -73,7 +73,7 @@ export default function ComicViewer({
           });
         } else if (res.data === "preview") {
           const src = el.getAttribute("data-src");
-          if (src) previewImage(src);
+          if (src) previewImage(src.replace("minipimg", ""));
         }
       });
     });
@@ -95,7 +95,9 @@ export default function ComicViewer({
               height: "800px",
               transition: "opacity 1s",
             }}
-            data-src={item.media.fileServer + "/static/" + item.media.path}
+            data-src={
+              "minipimg" + item.media.fileServer + "/static/" + item.media.path
+            }
           />
         )}
       </For>

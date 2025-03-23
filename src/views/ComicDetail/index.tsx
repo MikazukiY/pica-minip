@@ -73,7 +73,7 @@ function ComicDetailView({ comic }: { comic: PicaComicDetail }) {
                 "border-radius": "0.5rem",
                 "flex-shrink": 0,
               }}
-              src={imgSrc}
+              src={"minipimg" + imgSrc}
             />
             <div
               style={{

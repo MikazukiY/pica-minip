@@ -56,7 +56,7 @@ export function RecommendView({ comicId }: { comicId: string }) {
                     "border-radius": ".5rem",
                     "object-fit": "cover",
                   }}
-                  data-src={HandleImg(item.thumb)}
+                  data-src={"minipimg" + HandleImg(item.thumb)}
                   class="lazy-img"
                 />
               </div>

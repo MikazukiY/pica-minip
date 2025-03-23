@@ -33,7 +33,7 @@ export default function ComicItem({
       <img
         ref={(el) => LazyLoad(el)}
         class="lazy-img"
-        data-src={imgSrc}
+        data-src={"minipimg" + imgSrc}
         onClick={(e) => {
           e.stopPropagation();
           if (swiped()) {
