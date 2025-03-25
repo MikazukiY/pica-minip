@@ -1,5 +1,5 @@
 import { createSignal, Show } from "solid-js";
-import { LazyLoad } from "../../utils";
+import { HandleImg, LazyLoad } from "../../utils";
 import likesImg from "../../assets/icon_like.png";
 import { PicaComic } from "../../api/model";
 import "./index.css";
@@ -14,7 +14,7 @@ export default function ComicItem({
   onDelete?: () => void;
 }) {
   let mainRef: any;
-  const imgSrc = comic.thumb.fileServer + "/static/" + comic.thumb.path;
+  const imgSrc = HandleImg(comic.thumb);
   const [swiped, setSwiped] = createSignal(false);
   const [closeFunc, setCloseFunc] = createSignal(() => {});
 

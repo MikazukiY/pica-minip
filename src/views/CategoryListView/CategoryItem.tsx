@@ -1,4 +1,4 @@
-import { tap } from "../../utils";
+import { HandleImg, tap } from "../../utils";
 import placeHolder from "../../assets/placeholder_comicViewer.png";
 import leaderBoardImg from "../../assets/cat_leaderBoard.jpg";
 import randomImg from "../../assets/cat_random.jpg";
@@ -36,11 +36,9 @@ export default function CategoryItem({
   const isConstCat = !isWeb && !thumb;
 
   function getCoverImgUrl() {
-    let { fileServer, path } = thumb!;
-    // todo
-    fileServer = "https://s3.picacomic.com";
+    let { path } = thumb!;
     path = path.replace("tobs/", "");
-    return fileServer + "/static/" + path;
+    return HandleImg({ path });
   }
 
   function setTap(el: HTMLElement) {
