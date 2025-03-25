@@ -9,7 +9,7 @@
   "navigationBarStatus": "display",
   "icon": "pica.jpg",
   "tintColor": "#da9cb3",
-  "colorScheme": "dark",
+  "colorScheme": "auto",
   "tabs": [
     {
       "path": "index.html?page=home",

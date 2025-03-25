@@ -1,7 +1,12 @@
 import { createSignal, onMount } from "solid-js";
 import styles from "./index.module.css";
 import { PicaApi2 } from "../../api/api";
-import { getKVStorage, setKVStorage } from "minip-bridge";
+import {
+  getKVStorage,
+  navigateBack,
+  setKVStorage,
+  showHUD,
+} from "minip-bridge";
 
 export default function Login() {
   const [username, setUsername] = createSignal("");
@@ -36,7 +41,12 @@ export default function Login() {
       .then((res) => {
         if (res.code === 200 && res.data.token) {
           setKVStorage("jwt", res.data.token);
-          setMsg(res.data.token);
+          showHUD({
+            type: "success",
+            title: "登录成功",
+            delay: 800,
+          });
+          setTimeout(() => navigateBack(), 800);
         } else {
           throw new Error("request failed");
         }
