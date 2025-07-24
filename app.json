@@ -1,0 +1,35 @@
+{
+  "name": "pica-minip",
+  "displayName": "Pica",
+  "version": "0.0.4",
+  "author": "MikazukiY",
+  "appId": "b7006df1-db56-4fe9-a640-4456e463b4fd",
+  "website": "https://github.com/MikazukiY/pica-minip",
+  "homepage": "index.html",
+  "navigationBarStatus": "display",
+  "icon": "pica.jpg",
+  "tintColor": "#da9cb3",
+  "colorScheme": "auto",
+  "tabs": [
+    {
+      "path": "index.html?page=home",
+      "title": "首页",
+      "systemImage": "house.fill"
+    },
+    {
+      "path": "index.html?page=category",
+      "title": "分类",
+      "systemImage": "text.book.closed.fill"
+    },
+    {
+      "path": "index.html?page=profile",
+      "title": "我的",
+      "systemImage": "person.fill"
+    },
+    {
+      "path": "index.html?page=settings",
+      "title": "设定",
+      "systemImage": "gearshape.fill"
+    }
+  ]
+}

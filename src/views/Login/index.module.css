@@ -1,0 +1,23 @@
+.box {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ipt {
+  font-size: 1rem;
+}
+
+.btn {
+  font-size: 1rem;
+  color: #da9cb3;
+  width: 5rem;
+  line-height: 1.2rem;
+}

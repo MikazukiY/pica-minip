@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  color-scheme: light dark;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+  word-break: break-all;
+}
+
+img {
+  -webkit-user-drag: none;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.fade-in {
+  animation: fadeIn ease 0.5s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.lazy-img {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+input:focus {
+  outline: none !important;
+}
+
+.next-btn {
+  font-size: 1rem;
+  color: gray;
+  height: 3rem;
+  width: 5.7rem;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  color: gray;
+  background-color: gray;
+  opacity: 0.3;
+}
+
+.header {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.selectable {
+  -webkit-touch-callout: initial;
+  user-select: initial;
+  -webkit-user-select: initial;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.user-info {
+  border: 2px solid #da9cb3;
+  border-radius: 10px;
+}
+
+button {
+  color: #da9cb3;
+}
+
+.list-background {
+  background-color: #f1f1f6;
+  border-radius: 20px;
+}
+
+@media (prefers-color-scheme: dark) {
+  hr {
+    color: #3b3b3f;
+    border-color: #3b3b3f;
+  }
+
+  .header {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  .list-background {
+    background-color: #1e1e21;
+  }
+}
