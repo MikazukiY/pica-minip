@@ -3,6 +3,7 @@ import { FullScreenSpinner } from "../../components/Spinner/FullScreenSpinner";
 import { LineCenterSpinner } from "../../components/Spinner/LineCenterSpinner";
 import { CommentItem } from "./CommentItem";
 import { PicaApi2 } from "../../api/api";
+import { showAlert, showAppDetail, showHUD } from "minip-bridge";
 
 export default function CommentsView({
   comicId,
@@ -52,6 +53,20 @@ export default function CommentsView({
 
   onMount(() => {
     nextPage();
+
+    function updateVh() {
+      document.documentElement.style.setProperty(
+        "--vh",
+        `${window.innerHeight}px`
+      );
+    }
+    updateVh();
+    window.addEventListener("resize", updateVh);
+    window.addEventListener("orientationchange", updateVh);
+    return () => {
+      window.removeEventListener("resize", updateVh);
+      window.removeEventListener("orientationchange", updateVh);
+    };
   });
 
   return (
@@ -59,6 +74,17 @@ export default function CommentsView({
       when={isChild || !isLoading() || comments().length > 0}
       fallback={<FullScreenSpinner />}
     >
+      <div
+        onClick={() =>
+          showHUD({
+            type: "error",
+            message: "还未实现",
+          })
+        }
+        class="comment-btn"
+      >
+        写评论
+      </div>
       <div
         style={{
           display: "flex",

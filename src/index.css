@@ -94,6 +94,21 @@ button {
   border-radius: 20px;
 }
 
+.comment-btn {
+  position: fixed;
+  top: calc(var(--vh, 100vh) - calc(5rem + 10px));
+  right: 10px;
+  z-index: 10;
+  width: 5rem;
+  height: 5rem;
+  background-color: rgba(218, 156, 179, 0.7);
+  box-shadow: 0 0 15px rgb(218, 156, 179);
+  display: flex;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+}
+
 @media (prefers-color-scheme: dark) {
   hr {
     color: #3b3b3f;
