@@ -87,4 +87,7 @@ export const PicaService = {
 
   ///子评论
   sendChildComment: "comments/%@", // comment id
+
+  /// 用户发表的评论
+  userComments: "users/my-comments?page=%@", // page
 };

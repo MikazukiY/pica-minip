@@ -574,4 +574,16 @@ export const PicaApi2 = {
       body: JSON.stringify({ content: comment }),
     });
   },
+  async UserComments(page: number): Promise<PicaResponse<any>> {
+    const jwt = await getJWT();
+    const defaultApi = await getDefaultApiAsync();
+    const path = PicaService.userComments.replace("%@", String(page));
+    return picaRequest(defaultApi + path, {
+      method: "GET",
+      headers: {
+        ...getSignedHeaders(path, "GET"),
+        authorization: jwt,
+      },
+    });
+  },
 };
