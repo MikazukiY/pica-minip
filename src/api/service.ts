@@ -78,4 +78,13 @@ export const PicaService = {
 
   /// 漫画详情页推荐
   recommendation: "comics/%@/recommendation", // id
-}
+
+  /// 漫画发送评论
+  sendComment: "comics/%@/comments", // comic id
+
+  /// 游戏发送评论
+  sendGameComment: "games/%@/comments", // game id
+
+  ///子评论
+  sendChildComment: "comments/%@", // comment id
+};

@@ -533,4 +533,45 @@ export const PicaApi2 = {
       },
     });
   },
+  async SubmitComment(
+    comment: string,
+    comicID?: string,
+    gameID?: string
+  ): Promise<PicaResponse<undefined>> {
+    if (!comicID && !gameID) throw new Error("comicID or gameID is required");
+    const jwt = await getJWT();
+    const defaultApi = await getDefaultApiAsync();
+
+    let path;
+    if (comicID) path = PicaService.sendComment.replace("%@", comicID);
+    else if (gameID) path = PicaService.sendGameComment.replace("%@", gameID);
+    if (!path) throw new Error("path is required");
+    console.log(path);
+    return picaRequest(defaultApi + path, {
+      method: "POST",
+      headers: {
+        ...getSignedHeaders(path, "POST"),
+        authorization: jwt,
+      },
+      body: JSON.stringify({ content: comment }),
+    });
+  },
+  async SubmitChildComment(
+    comment: string,
+    parentCommentId?: string
+  ): Promise<PicaResponse<undefined>> {
+    if (!parentCommentId) throw new Error("parentCommentId is required");
+    const jwt = await getJWT();
+    const defaultApi = await getDefaultApiAsync();
+
+    const path = PicaService.sendChildComment.replace("%@", parentCommentId);
+    return picaRequest(defaultApi + path, {
+      method: "POST",
+      headers: {
+        ...getSignedHeaders(path, "POST"),
+        authorization: jwt,
+      },
+      body: JSON.stringify({ content: comment }),
+    });
+  },
 };

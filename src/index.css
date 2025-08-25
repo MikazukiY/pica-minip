@@ -14,6 +14,10 @@ img {
   -webkit-user-drag: none;
 }
 
+textarea:focus {
+  outline: #da9cb3 solid 1px;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",

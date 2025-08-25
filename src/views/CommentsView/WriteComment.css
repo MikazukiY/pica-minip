@@ -1,0 +1,9 @@
+.write-comment-textarea {
+  width: 100%;
+  height: 20vh;
+  min-height: 5rem;
+  font-size: 1rem;
+  border: 1px solid gray;
+  resize: vertical;
+  box-sizing: border-box;
+}

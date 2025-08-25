@@ -1,25 +1,26 @@
 // @ts-nocheck
 
-import { Switch, Match } from 'solid-js';
-import Login from './views/Login';
-import Home from './views/Home';
-import ComicDetail from './views/ComicDetail';
-import ComicViewer from './views/ComicViewer';
-import CategoryListView from './views/CategoryListView';
-import ComicListView from './views/ComicListView';
-import CommentsView from './views/CommentsView';
-import RankView from './views/RankView';
-import ProfileView from './views/ProfileView';
-import GameListView from './views/GameListView/GameListView';
-import GameDetailView from './views/GameDetailView/GameDetailView';
-import SettingsView from './views/SettingsView';
+import { Switch, Match } from "solid-js";
+import Login from "./views/Login";
+import Home from "./views/Home";
+import ComicDetail from "./views/ComicDetail";
+import ComicViewer from "./views/ComicViewer";
+import CategoryListView from "./views/CategoryListView";
+import ComicListView from "./views/ComicListView";
+import CommentsView from "./views/CommentsView";
+import RankView from "./views/RankView";
+import ProfileView from "./views/ProfileView";
+import GameListView from "./views/GameListView/GameListView";
+import GameDetailView from "./views/GameDetailView/GameDetailView";
+import SettingsView from "./views/SettingsView";
+import WriteComment from "./views/CommentsView/WriteComment";
 
 const params = new Proxy(new URLSearchParams(window.location.search), {
   get: (searchParams, prop) => searchParams.get(prop as string),
 });
 
 function App() {
-  const page = params.page ?? "home"
+  const page = params.page ?? "home";
   return (
     <>
       <Switch>
@@ -54,7 +55,7 @@ function App() {
           <CommentsView comicId="5822a6e3ad7ede654696e482" />
         </Match>
         <Match when={page === "search_result"}>
-          <ComicListView type='search' data={params.keyword} />
+          <ComicListView type="search" data={params.keyword} />
         </Match>
         <Match when={page === "author"}>
           <ComicListView type="author" data={params.author} />
@@ -89,9 +90,16 @@ function App() {
         <Match when={page === "settings"}>
           <SettingsView />
         </Match>
+        <Match when={page === "write_comment"}>
+          <WriteComment
+            comicID={params.comic_id}
+            gameID={params.game_id}
+            isChild={params.is_child === "true"}
+          />
+        </Match>
       </Switch>
     </>
-  )
+  );
 }
 
 export default App;

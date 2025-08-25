@@ -3,7 +3,7 @@ import { FullScreenSpinner } from "../../components/Spinner/FullScreenSpinner";
 import { LineCenterSpinner } from "../../components/Spinner/LineCenterSpinner";
 import { CommentItem } from "./CommentItem";
 import { PicaApi2 } from "../../api/api";
-import { showAlert, showAppDetail, showHUD } from "minip-bridge";
+import { navigateTo, showAlert, showAppDetail, showHUD } from "minip-bridge";
 
 export default function CommentsView({
   comicId,
@@ -75,12 +75,22 @@ export default function CommentsView({
       fallback={<FullScreenSpinner />}
     >
       <div
-        onClick={() =>
-          showHUD({
-            type: "error",
-            message: "还未实现",
-          })
-        }
+        onClick={() => {
+          let query = "";
+
+          if (isChild) {
+            query += `&comic_id=${parentComment._id}&is_child=true`;
+          } else if (gameId) {
+            query += "&game_id=" + gameId;
+          } else if (comicId) {
+            query += "&comic_id=" + comicId;
+          }
+
+          navigateTo({
+            page: "index.html?page=write_comment" + query,
+            title: "评论",
+          });
+        }}
         class="comment-btn"
       >
         写评论
