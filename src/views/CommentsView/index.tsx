@@ -3,7 +3,7 @@ import { FullScreenSpinner } from "../../components/Spinner/FullScreenSpinner";
 import { LineCenterSpinner } from "../../components/Spinner/LineCenterSpinner";
 import { CommentItem } from "./CommentItem";
 import { PicaApi2 } from "../../api/api";
-import { navigateTo, showAlert, showAppDetail, showHUD } from "minip-bridge";
+import { navigateTo } from "minip-bridge";
 
 export default function CommentsView({
   comicId,
