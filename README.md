@@ -7,13 +7,15 @@
 ## 安装
 
 1. [App Store](https://apps.apple.com/us/app/minip-editor/id6463115915) 中下载 Minip App
-2. 到 Release 界面手动下载最新版，并在 Minip App 首页右上角按钮中添加
+2. 以下方式任选一种即可
 
-   或使用 Minip App 扫描以下二维码:
+   - 到 Release 界面手动下载最新版，并在 Minip App 首页右上角按钮中添加
 
-   ![qrcode](./qrcode.png)
+   - 使用 Minip App 扫描以下二维码:
 
-   或使用安装了 Minip App 的设备点击[此处](https://minip.lzyl.win/download?url=https%3A%2F%2Fgithub.com%2FMikazukiY%2Fpica-minip%2Freleases%2Flatest%2Fdownload%2Fpica-minip.zip)
+     ![qrcode](./qrcode.png)
+
+   - 使用安装了 Minip App 的设备点击[此处](https://minip.lzyl.win/download?url=https%3A%2F%2Fgithub.com%2FMikazukiY%2Fpica-minip%2Freleases%2Flatest%2Fdownload%2Fpica-minip.zip)
 
 ## 截图
 
