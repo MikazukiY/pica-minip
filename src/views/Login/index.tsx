@@ -4,6 +4,7 @@ import { PicaApi2 } from "../../api/api";
 import {
   getKVStorage,
   navigateBack,
+  openWebsite,
   setKVStorage,
   showHUD,
 } from "minip-bridge";
@@ -78,9 +79,17 @@ export default function Login() {
         type="password"
         autocomplete="off"
       />
-      <button disabled={isLogining()} class={styles.btn} onclick={login}>
-        Login
-      </button>
+      <div>
+        <button disabled={isLogining()} class={styles.btn} onclick={login}>
+          Login
+        </button>
+        <button
+          class={styles.btn}
+          onclick={() => openWebsite("https://manhuabika.com/pregister/?")}
+        >
+          注册
+        </button>
+      </div>
     </div>
   );
 }
