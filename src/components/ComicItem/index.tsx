@@ -6,6 +6,15 @@ import "./index.css";
 import { navigateTo, previewImage } from "minip-bridge";
 import SwipeOut from "../SwipeOut";
 
+function showTags(cats: string[]) {
+  const dc = ["禁書目錄", "生肉", "耽美花園"];
+  for (const ele of cats) {
+    if (dc.indexOf(ele) !== -1) return true;
+  }
+
+  return false;
+}
+
 export default function ComicItem({
   comic,
   onDelete,
@@ -18,21 +27,11 @@ export default function ComicItem({
   const [swiped, setSwiped] = createSignal(false);
   const [closeFunc, setCloseFunc] = createSignal(() => {});
 
-  function showTags() {
-    const cats = comic.categories;
-    const dc = ["禁書目錄", "生肉", "耽美花園"];
-    for (const ele of cats) {
-      if (dc.indexOf(ele) !== -1) return true;
-    }
-
-    return false;
-  }
-
   const content = (
     <>
       <img
         ref={(el) => LazyLoad(el)}
-        class="lazy-img"
+        class="lazy-img comic-item-img"
         data-src={"minipimg" + imgSrc}
         onClick={(e) => {
           e.stopPropagation();
@@ -42,20 +41,9 @@ export default function ComicItem({
           }
           previewImage(imgSrc);
         }}
-        style={{
-          width: "7rem",
-          height: "10rem",
-          "object-fit": "cover",
-          "border-radius": "0.5rem",
-          "flex-shrink": 0,
-        }}
       />
-      <div
-        style={{
-          flex: 1,
-        }}
-      >
-        <div style={{}}>
+      <div class="flex-1">
+        <div>
           <span>{comic.title}</span>
           <Show when={comic.pagesCount}>
             <span>&nbsp;&nbsp;({comic.pagesCount}P)&nbsp;&nbsp;</span>
@@ -73,47 +61,18 @@ export default function ComicItem({
         >
           {comic.author}
         </div>
-        <div
-          style={{
-            color: "gray",
-            "font-size": ".9rem",
-          }}
-        >
+        <div class="text-gray-500 text-[0.9rem]">
           分类: {comic.categories.join()}
         </div>
-        <div
-          style={{
-            display: "inline-flex",
-            gap: "5px",
-            "margin-top": "10px",
-          }}
-        >
-          <img
-            style={{
-              width: "1.5rem",
-            }}
-            src={likesImg}
-          />
-          <div
-            style={{
-              color: "gray",
-              "font-weight": 600,
-              "font-size": "1.1rem",
-            }}
-          >
+        <div class="inline-flex gap-[5px] mt-[10px]">
+          <img class="w-6" src={likesImg} />
+          <div class="text-gray-500 font-semibold text-[1.1rem]">
             {comic.totalLikes ?? comic.likesCount}
           </div>
         </div>
       </div>
-      <Show when={showTags()}>
-        <div
-          style={{
-            width: "1.5rem",
-            display: "flex",
-            "flex-direction": "column",
-            "justify-content": "space-evenly",
-          }}
-        >
+      <Show when={showTags(comic.categories)}>
+        <div class="w-6 flex flex-col justify-evenly">
           <Show when={comic.categories.indexOf("禁書目錄") !== -1}>
             <div style={{ "background-color": "#6EC3FF" }} class="cat-label">
               禁書
@@ -135,13 +94,7 @@ export default function ComicItem({
   );
   if (onDelete) {
     return (
-      <div
-        ref={mainRef}
-        style={{
-          "padding-left": "0.5rem",
-          "padding-right": "0.5rem",
-        }}
-      >
+      <div ref={mainRef} class="px-2">
         <SwipeOut
           right={
             <div
@@ -167,11 +120,7 @@ export default function ComicItem({
           onClosed={() => setSwiped(false)}
         >
           <div
-            class="fade-in"
-            style={{
-              display: "flex",
-              gap: "0.5rem",
-            }}
+            class="fade-in flex gap-2"
             onClick={() => {
               if (swiped()) {
                 closeFunc()();
@@ -192,13 +141,7 @@ export default function ComicItem({
   return (
     <div
       ref={mainRef}
-      class="fade-in"
-      style={{
-        display: "flex",
-        "padding-left": "0.5rem",
-        "padding-right": "0.5rem",
-        gap: "0.5rem",
-      }}
+      class="fade-in comic-item-main"
       onClick={() => {
         if (swiped()) {
           closeFunc()();

@@ -28,3 +28,18 @@
   animation: collapse 0.2s ease-out forwards;
   overflow: hidden;
 }
+
+.comic-item-img {
+  width: 7rem;
+  height: 10rem;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  flex-shrink: 0;
+}
+
+.comic-item-main {
+  display: flex;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  gap: 0.5rem;
+}
