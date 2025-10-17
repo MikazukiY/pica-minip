@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { Switch, Match } from "solid-js";
 import Login from "./views/Login";
 import Home from "./views/Home";
@@ -15,12 +13,15 @@ import GameDetailView from "./views/GameDetailView/GameDetailView";
 import SettingsView from "./views/SettingsView";
 import WriteComment from "./views/CommentsView/WriteComment";
 
-const params = new Proxy(new URLSearchParams(window.location.search), {
-  get: (searchParams, prop) => searchParams.get(prop as string),
-});
+const params = new Proxy<Record<string, string>>(
+  Object.fromEntries(new URLSearchParams(window.location.search)),
+  {
+    get: (searchParams, prop: string) => searchParams[prop] ?? null,
+  }
+);
 
 function App() {
-  const page = params.page ?? "home";
+  const page = params.page;
   return (
     <>
       <Switch>

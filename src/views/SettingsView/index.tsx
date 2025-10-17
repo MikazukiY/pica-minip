@@ -14,11 +14,12 @@ import ArrowRight from "../../assets/arrow-right.svg";
 import "./index.css";
 import { createSignal, onMount, Show } from "solid-js";
 
-const CHECK_VERSION_URL = "https://api.github.com/repos/MikazukiY/pica-minip/releases/latest"
+const CHECK_VERSION_URL =
+  "https://api.github.com/repos/MikazukiY/pica-minip/releases/latest";
 
 function compareVersions(version1: string, version2: string): number {
-  const v1 = version1.split('.').map(Number);
-  const v2 = version2.split('.').map(Number);
+  const v1 = version1.split(".").map(Number);
+  const v2 = version2.split(".").map(Number);
 
   const maxLength = Math.max(v1.length, v2.length);
 
@@ -33,37 +34,94 @@ function compareVersions(version1: string, version2: string): number {
   return 0;
 }
 
+function updateApp() {
+  showHUD({
+    type: "progress",
+    interaction: false,
+  });
+  updateCurrentApp(
+    "https://github.com/MikazukiY/pica-minip/releases/latest/download/pica-minip.zip"
+  )
+    .then(() => {
+      showHUD({
+        type: "success",
+        message: "更新成功, 即将重启应用",
+        delay: 1000,
+      });
+      setTimeout(() => {
+        closeApp();
+      }, 1000);
+    })
+    .catch((err) => {
+      showHUD({
+        type: "error",
+        title: "更新时发生错误",
+        message: err?.message ?? "unknown error",
+      });
+    });
+}
+
+function logout() {
+  showAlert({
+    title: "确认登出？",
+    actions: [
+      {
+        title: "确认",
+        style: "destructive",
+        key: "confirm",
+      },
+      {
+        title: "取消",
+        style: "cancel",
+        key: "cancel",
+      },
+    ],
+  }).then((res) => {
+    if (res.data.action === "confirm") {
+      deleteKVStorage("jwt").then((res) => {
+        if (res) {
+          showHUD({
+            type: "success",
+            message: "登出成功",
+          });
+        }
+      });
+    }
+  });
+}
+
 export default function SettingsView() {
   const [api, setSS] = createSignal("2");
-  const [version, setVersion] = createSignal("")
-  const [latestVersion, setLatestVersion] = createSignal("")
-  const [loading, setLoading] = createSignal(true)
+  const [version, setVersion] = createSignal("");
+  const [latestVersion, setLatestVersion] = createSignal("");
+  const [loading, setLoading] = createSignal(true);
   onMount(() => {
     getKVStorage("selectedApi").then((res) => {
       if (res.data) setSS(res.data);
       else setSS(apiConfig.selected.toString());
     });
-    getAppInfo().then(r => setVersion(r.data.version ?? "unknown"))
+    getAppInfo()
+      .then((r) => setVersion(r.data.version ?? "unknown"))
       .finally(() => {
         fetch(CHECK_VERSION_URL)
-          .then(res => res.json())
-          .then(res => {
-            setLatestVersion(res.tag_name ?? "unknown")
-            console.log(res)
+          .then((res) => res.json())
+          .then((res) => {
+            setLatestVersion(res.tag_name ?? "unknown");
+            console.log(res);
           })
-          .catch(err => {
+          .catch((err) => {
             showHUD({
               type: "error",
               title: "检查更新发生错误",
-              message: err?.message ?? "unknown error"
-            })
+              message: err?.message ?? "unknown error",
+            });
           })
-          .finally(() => setLoading(false))
-      })
+          .finally(() => setLoading(false));
+      });
   });
 
   function needUpdate() {
-    return compareVersions(version(), latestVersion()) === -1
+    return compareVersions(version(), latestVersion()) === -1;
   }
 
   function setNew(s: string) {
@@ -219,31 +277,27 @@ export default function SettingsView() {
             <div>版本</div>
             <div style={{ color: "gray" }}>
               {loading() ? "检测中" : version()}
-              <Show when={!loading() && version() !== "unknown" && latestVersion() !== "unknown" && needUpdate()}>
-                &nbsp;(&nbsp;最新版本 {latestVersion()}, <span onClick={() => {
-                  showHUD({
-                    type: "progress",
-                    interaction: false
-                  })
-                  updateCurrentApp("https://github.com/MikazukiY/pica-minip/releases/latest/download/pica-minip.zip")
-                    .then(() => {
-                      showHUD({
-                        type: "success",
-                        message: "更新成功, 即将重启应用",
-                        delay: 1000
-                      })
-                      setTimeout(() => {
-                        closeApp()
-                      }, 1000)
-                    })
-                    .catch(err => {
-                      showHUD({
-                        type: "error",
-                        title: "更新时发生错误",
-                        message: err?.message ?? "unknown error"
-                      })
-                    })
-                }} style={{ color: "red", "font-weight": "bold" }}>点击更新</span>&nbsp;)&nbsp;
+
+              <Show
+                when={
+                  !loading() &&
+                  version() !== "unknown" &&
+                  latestVersion() !== "unknown"
+                }
+              >
+                <Show
+                  when={needUpdate()}
+                  fallback={<>&nbsp;(已是最新版本)&nbsp;</>}
+                >
+                  &nbsp;(&nbsp;最新版本 {latestVersion()},{" "}
+                  <span
+                    onClick={updateApp}
+                    style={{ color: "red", "font-weight": "bold" }}
+                  >
+                    点击更新
+                  </span>
+                  &nbsp;)&nbsp;
+                </Show>
               </Show>
             </div>
           </div>
@@ -263,34 +317,7 @@ export default function SettingsView() {
               "font-size": "1rem",
               "border-radius": "12px",
             }}
-            onClick={() => {
-              showAlert({
-                title: "确认登出？",
-                actions: [
-                  {
-                    title: "确认",
-                    style: "destructive",
-                    key: "confirm",
-                  },
-                  {
-                    title: "取消",
-                    style: "cancel",
-                    key: "cancel",
-                  },
-                ],
-              }).then((res) => {
-                if (res.data.action === "confirm") {
-                  deleteKVStorage("jwt").then((res) => {
-                    if (res) {
-                      showHUD({
-                        type: "success",
-                        message: "登出成功",
-                      });
-                    }
-                  });
-                }
-              });
-            }}
+            onClick={logout}
           >
             登出
           </button>
