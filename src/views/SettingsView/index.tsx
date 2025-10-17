@@ -45,7 +45,7 @@ function updateApp() {
     .then(() => {
       showHUD({
         type: "success",
-        message: "更新成功, 即将重启应用",
+        message: "更新成功, 请重启应用",
         delay: 1000,
       });
       setTimeout(() => {
