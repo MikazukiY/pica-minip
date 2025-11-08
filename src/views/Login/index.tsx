@@ -80,14 +80,14 @@ export default function Login() {
         autocomplete="off"
       />
       <div>
-        <button disabled={isLogining()} class={styles.btn} onclick={login}>
-          Login
-        </button>
         <button
           class={styles.btn}
           onclick={() => openWebsite("https://manhuabika.com/pregister/?")}
         >
           注册
+        </button>
+        <button disabled={isLogining()} class={styles.btn} onclick={login}>
+          登陆
         </button>
       </div>
     </div>
